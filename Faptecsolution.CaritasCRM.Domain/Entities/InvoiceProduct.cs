@@ -1,7 +1,4 @@
 ﻿using Faptecsolution.CaritasCRM.Domain.Common;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Faptecsolution.CaritasCRM.Domain.Entities
 {
