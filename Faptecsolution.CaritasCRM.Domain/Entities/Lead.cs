@@ -1,8 +1,9 @@
-﻿using System.Security.Principal;
+﻿using Faptecsolution.CaritasCRM.Domain.Common;
+using System.Security.Principal;
 
 namespace Faptecsolution.CaritasCRM.Domain.Entities
 {
-    public class Lead
+    public class Lead : BaseEntity
     {
         public string Topic { get; set; } = string.Empty;
         public string FirstName { get; set; } = string.Empty;
