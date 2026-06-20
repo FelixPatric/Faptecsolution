@@ -1,7 +1,9 @@
 <Solution>
   <Folder Name="/src/" />
   <Folder Name="/src/API/" />
-  <Folder Name="/src/Core/" />
+  <Folder Name="/src/Core/">
+    <Project Path="Faptecsolution.CaritasCRM.Domain/Faptecsolution.CaritasCRM.Domain.csproj" />
+  </Folder>
   <Folder Name="/src/Infrastructure/" />
   <Folder Name="/src/UI/" />
   <Folder Name="/Test/" />
