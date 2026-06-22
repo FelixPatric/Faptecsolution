@@ -1,27 +1,33 @@
 # Faptecsolution
 
-Faptecsolution is a C# solution for a Caritas CRM domain, organized with a clean separation between the core application and domain layers.
+Faptecsolution is a modular C# solution for a Caritas CRM platform, structured around a clean separation of domain rules, application use cases, and future delivery layers.
 
-## Overview
+The repository currently includes the core solution foundation for modeling and orchestrating CRM workflows such as leads, contacts, accounts, opportunities, quotes, invoices, products, and activities.
 
-This repository currently contains:
+## What’s in the repository
 
-- **Application layer** — service registration, feature modules, contracts, and mapping profiles
-- **Domain layer** — CRM entities, enums, and shared domain types
+- **Domain layer** — CRM entities, enums, and shared domain abstractions
+- **Application layer** — use-case orchestration, feature modules, contracts, and object mapping
 - **Solution file** — `Faptecsolution.slnx`
 
-The project structure suggests a modular CRM backend focused on core business objects such as:
+## Architecture
 
-- Leads
-- Contacts
-- Accounts
-- Opportunities
-- Quotes
-- Invoices
-- Products
-- Activities
+The solution follows a layered architecture designed to keep business logic isolated from infrastructure and presentation concerns:
 
-## Solution Structure
+- **Domain** holds the core business model.
+- **Application** contains feature-driven application logic and integration points.
+- **API / UI / Infrastructure** folders are present in the solution structure and appear intended for future expansion.
+
+Dependency registration for the application layer is centralized in:
+
+- `Faptecsolution.CaritasCRM.Application/ApplicationServiceRegistration.cs`
+
+That setup currently registers:
+
+- **AutoMapper** for object mapping
+- **MediatR** for request/handler-based application workflows
+
+## Project structure
 
 ```text
 Faptecsolution/
@@ -37,22 +43,27 @@ Faptecsolution/
 └── Faptecsolution.slnx
 ```
 
-## Architecture
+## Domain focus
 
-The solution follows a layered application architecture:
+Based on the current codebase, the CRM domain includes concepts such as:
 
-- **Domain** contains the business entities and domain enums.
-- **Application** contains use-case logic, feature modules, persistence contracts, and object mapping.
-- Dependency injection is configured through `AddApplicationServices(...)`.
+- **Leads** — lead capture, rating, source, and status tracking
+- **Contacts** — people and communication details
+- **Accounts** — customer or organization records
+- **Opportunities** — sales pipeline and stage tracking
+- **Quotes** — pricing and proposal workflows
+- **Invoices** — billing and payment lifecycle
+- **Products** — catalog and category management
+- **Activities** — task and interaction tracking
 
-## Technologies
+## Technology stack
 
 - C#
 - .NET
 - MediatR
 - AutoMapper
 
-## Getting Started
+## Getting started
 
 ### Prerequisites
 
@@ -64,26 +75,22 @@ The solution follows a layered application architecture:
 dotnet build Faptecsolution.slnx
 ```
 
-### Run
-
-This repository currently appears to contain the core solution layers only. If an API or UI project is added later, run that project from the solution after restoring dependencies:
+### Restore dependencies
 
 ```bash
 dotnet restore
 ```
 
-## Extending the Project
+## Contributing and extension points
 
-When adding new CRM features, place them in the appropriate layer:
+When adding new features, keep responsibilities separated by layer:
 
-- **Domain** for new entities, enums, and business rules
-- **Application** for feature handlers, contracts, and mapping profiles
-- **API/UI** projects for presentation and delivery concerns
+- **Domain**: entities, value objects, enums, and business rules
+- **Application**: commands, queries, handlers, DTOs, contracts, and mappings
+- **Infrastructure**: persistence, external integrations, and implementation details
+- **API / UI**: user-facing endpoints and presentation logic
 
-## License
+## Notes
 
-No license file is currently present.
-
-## Status
-
-This project is in an early scaffolding stage and is ready for further implementation of CRM features and infrastructure.
+- No license file is currently included.
+- The repository looks like an early-stage solution foundation, ready for feature expansion.
