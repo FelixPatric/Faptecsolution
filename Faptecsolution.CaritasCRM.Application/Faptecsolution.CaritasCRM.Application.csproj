@@ -12,6 +12,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="16.1.1" />
+    <PackageReference Include="MediatR" Version="14.1.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Faptecsolution.CaritasCRM.Domain\Faptecsolution.CaritasCRM.Domain.csproj" />
   </ItemGroup>
 
