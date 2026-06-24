@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Faptecsolution.CaritasCRM.Application.Contracts.Persistence;
 using Faptecsolution.CaritasCRM.Application.Exceptions;
+using Faptecsolution.CaritasCRM.Domain.Entities;
 using MediatR;
 
 namespace Faptecsolution.CaritasCRM.Application.Features.Lead.Commands.UpdateLeadCommand
@@ -18,22 +19,17 @@ namespace Faptecsolution.CaritasCRM.Application.Features.Lead.Commands.UpdateLea
 
         public async Task<Unit> Handle(UpdateLeadCommand request, CancellationToken cancellationToken)
         {
-            // 1. Validate the incoming data 
-            var validator = new UpdateLeadCommandValidator(_leadRepository);
-            var validationResult = await validator.ValidateAsync(request);
-            if (validationResult.Errors.Any())
+            var leadToUpdate = await _leadRepository.GetByIdAsync(request.Id);
+
+            if (leadToUpdate is null)
             {
-                throw new BadRequestException("Invalid lead data.", validationResult);
+                throw new NotFoundException(nameof(Lead), request.Id);
             }
 
-            // 2. Convert to domain entity object
-            var leadToUpdate = _mapper.Map<Domain.Entities.Lead>(request);
+            _mapper.Map(request, leadToUpdate);
 
-            // 3. Update in database
             await _leadRepository.UpdateAsync(leadToUpdate);
 
-
-            // 4. Return the ID of the updated lead
             return Unit.Value;
         }
     }
