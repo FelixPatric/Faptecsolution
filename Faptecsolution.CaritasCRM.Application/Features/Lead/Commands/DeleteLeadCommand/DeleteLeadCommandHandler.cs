@@ -25,7 +25,6 @@ namespace Faptecsolution.CaritasCRM.Application.Features.Lead.Commands.DeleteLea
             }
 
             // 3. Mark the lead as deleted
-            leadToDelete.IsDeleted = true;
             await _leadRepository.DeleteAsync(leadToDelete);
 
             // 4. Return Unit.Value to indicate successful completion
