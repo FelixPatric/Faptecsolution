@@ -32,6 +32,7 @@ namespace Faptecsolution.CaritasCRM.Application.Features.Lead.Queries.GetLeadsDe
             // 3. Map the lead entity to a DTO
             var leadDetailsDTO = _mapper.Map<LeadDetailsDTO>(lead);
 
+            // for leads with any most recent activity records
             var recentActivities = await _activityRepository.GetRecentByRegardingAsync(
                 lead.Id,
                 nameof(Lead),
