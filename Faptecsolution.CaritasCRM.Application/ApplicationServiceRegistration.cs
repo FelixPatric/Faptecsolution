@@ -1,4 +1,7 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Faptecsolution.CaritasCRM.Application.Common.Behaviours;
+using FluentValidation;
+using MediatR;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Faptecsolution.CaritasCRM.Application
 {
@@ -6,9 +9,12 @@ namespace Faptecsolution.CaritasCRM.Application
     {
         public static IServiceCollection AddApplicationServices(this IServiceCollection services)
         {
-            // Register application services here
             services.AddAutoMapper(cfg => { }, typeof(ApplicationServiceRegistration).Assembly);
-            services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(ApplicationServiceRegistration).Assembly));  
+            services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(ApplicationServiceRegistration).Assembly));
+
+            services.AddValidatorsFromAssembly(typeof(ApplicationServiceRegistration).Assembly);
+            services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
+
             return services;
         }
     }
