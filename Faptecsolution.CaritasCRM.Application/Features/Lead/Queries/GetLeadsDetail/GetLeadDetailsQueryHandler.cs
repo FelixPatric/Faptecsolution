@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Faptecsolution.CaritasCRM.Application.Contracts.Persistence;
+using Faptecsolution.CaritasCRM.Application.Exceptions;
 using MediatR;
 
 namespace Faptecsolution.CaritasCRM.Application.Features.Lead.Queries.GetLeadsDetail
@@ -22,12 +23,13 @@ namespace Faptecsolution.CaritasCRM.Application.Features.Lead.Queries.GetLeadsDe
             // 1. Query the database 
             var lead = await _leadRepository.GetByIdAsync(request.Id);
 
-            //if (lead is null)
-            //{
-            //    throw new notfoundexception($"lead with id '{request.id}' was not found.");
-            //}
+            // 2. verify if the lead exists, if not throw a NotFoundException
+            if (lead is null)
+            {
+                throw new NotFoundException(nameof(Lead), request.Id);
+            }
 
-            // 2. Map the lead entity to a DTO
+            // 3. Map the lead entity to a DTO
             var leadDetailsDTO = _mapper.Map<LeadDetailsDTO>(lead);
 
             var recentActivities = await _activityRepository.GetRecentByRegardingAsync(
@@ -37,7 +39,7 @@ namespace Faptecsolution.CaritasCRM.Application.Features.Lead.Queries.GetLeadsDe
                 cancellationToken);
 
             leadDetailsDTO.RecentActivities = _mapper.Map<List<ActivitySummaryDTO>>(recentActivities);
-            // 3. Return the DTO
+            // 4. Return the DTO
             return leadDetailsDTO;
         }
     }
