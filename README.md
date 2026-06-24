@@ -34,14 +34,46 @@ Faptecsolution/
 ├── Faptecsolution.CaritasCRM.Application/
 │   ├── ApplicationServiceRegistration.cs
 │   ├── Contracts/
+│   │   └── Persistence/
+│   │       ├── ILeadRepository.cs
+│   │       └── IOpportunityRepository.cs
 │   ├── Features/
+│   │   └── Lead/
+│   │       ├── Commands/
+│   │       └── Queries/
+│   │           ├── GetAllLeads/
+│   │           │   ├── GetAllLeadsQuery.cs
+│   │           │   ├── GetAllLeadsQueryHandler.cs
+│   │           │   └── LeadDTO.cs
+│   │           └── GetLeadsDetail/
+│   │               ├── GetLeadDetailsQueryHandler.cs
+│   │               └── LeadDetailsDTO.cs
 │   └── MappingProfiles/
+│       └── LeadProfile.cs
 ├── Faptecsolution.CaritasCRM.Domain/
 │   ├── Common/
 │   ├── Entities/
 │   └── Enums/
 └── Faptecsolution.slnx
 ```
+
+## What’s new in the Application layer
+
+Recent additions in `Faptecsolution.CaritasCRM.Application` include:
+
+- **Lead query use cases**
+  - `GetAllLeadsQuery` and `GetAllLeadsQueryHandler`
+  - `GetLeadDetailsQueryHandler`
+- **Lead-focused DTOs**
+  - `LeadDTO` for list/read-model scenarios
+  - `LeadDetailsDTO` for expanded lead views (including recent activities)
+- **Mapping profile updates**
+  - `LeadProfile` with AutoMapper mapping between `Lead` and `LeadDTO`
+- **Persistence contracts**
+  - `ILeadRepository`
+  - `IOpportunityRepository`
+
+These additions strengthen the CQRS-style query flow in the Application layer and prepare the solution for richer CRM feature expansion.
 
 ## Domain focus
 
@@ -59,7 +91,7 @@ Based on the current codebase, the CRM domain includes concepts such as:
 ## Technology stack
 
 - C#
-- .NET
+- .NET (`net10.0` in Application project)
 - MediatR
 - AutoMapper
 
@@ -67,18 +99,18 @@ Based on the current codebase, the CRM domain includes concepts such as:
 
 ### Prerequisites
 
-- .NET SDK compatible with the solution
-
-### Build
-
-```bash
-dotnet build Faptecsolution.slnx
-```
+- .NET SDK compatible with the solution target framework
 
 ### Restore dependencies
 
 ```bash
 dotnet restore
+```
+
+### Build
+
+```bash
+dotnet build Faptecsolution.slnx
 ```
 
 ## Contributing and extension points
@@ -93,4 +125,4 @@ When adding new features, keep responsibilities separated by layer:
 ## Notes
 
 - No license file is currently included.
-- The repository looks like an early-stage solution foundation, ready for feature expansion.
+- The repository is an evolving solution foundation, ready for continued feature expansion.
