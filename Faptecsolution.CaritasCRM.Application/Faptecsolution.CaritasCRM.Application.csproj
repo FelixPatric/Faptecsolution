@@ -8,7 +8,6 @@
 
   <ItemGroup>
     <Folder Include="Features\Lead\Commands\DeleteLeadCommand\" />
-    <Folder Include="Features\Lead\Commands\UpdateLeadCommand\" />
   </ItemGroup>
 
   <ItemGroup>
