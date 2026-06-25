@@ -17,4 +17,8 @@
     <ProjectReference Include="..\Faptecsolution.CaritasCRM.Domain\Faptecsolution.CaritasCRM.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Features\Lead\Commands\QualifyLeadCommand\" />
+  </ItemGroup>
+
 </Project>
