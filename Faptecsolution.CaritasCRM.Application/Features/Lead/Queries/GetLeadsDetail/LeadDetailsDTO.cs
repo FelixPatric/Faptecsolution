@@ -24,6 +24,6 @@
         public Guid? QualifiedAccountId { get; set; }
         public Guid? QualifiedOpportunityId { get; set; }
 
-        public List<ActivitySummaryDTO> RecentActivities { get; set; } = [];
+        public List<TimelineItemDTO> Timeline { get; set; } = [];
     }
 }
