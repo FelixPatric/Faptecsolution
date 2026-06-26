@@ -30,6 +30,8 @@ namespace Faptecsolution.CaritasCRM.Application.Features.Lead.Commands.CreateLea
                 .MustAsync(IsEmailUniqueAsync).WithMessage("{PropertyName} already exists.");
 
             RuleFor(l => l.Phone)
+                .NotEmpty().WithMessage("{PropertyName} is required.")
+                .Matches(@"^\+?[0-9\s\-\(\)]{7,20}$").WithMessage("{PropertyName} is not valid.")
                 .MaximumLength(20).WithMessage("{PropertyName} cannot exceed 20 characters.");
 
             RuleFor(l => l.JobTitle)

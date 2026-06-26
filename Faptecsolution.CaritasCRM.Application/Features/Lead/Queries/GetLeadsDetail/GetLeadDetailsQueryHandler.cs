@@ -11,7 +11,10 @@ namespace Faptecsolution.CaritasCRM.Application.Features.Lead.Queries.GetLeadsDe
         private readonly IActivityRepository _activityRepository;
         private readonly IMapper _mapper;
 
-        public GetLeadDetailsQueryHandler(ILeadRepository leadRepository, IActivityRepository activityRepository, IMapper mapper)
+        public GetLeadDetailsQueryHandler(
+            ILeadRepository leadRepository,
+            IActivityRepository activityRepository,
+            IMapper mapper)
         {
             _leadRepository = leadRepository;
             _activityRepository = activityRepository;
@@ -20,27 +23,25 @@ namespace Faptecsolution.CaritasCRM.Application.Features.Lead.Queries.GetLeadsDe
 
         public async Task<LeadDetailsDTO> Handle(GetLeadDetailsQuery request, CancellationToken cancellationToken)
         {
-            // 1. Query the database 
             var lead = await _leadRepository.GetByIdAsync(request.Id);
 
-            // 2. verify if the lead exists, if not throw a NotFoundException
             if (lead is null)
             {
                 throw new NotFoundException(nameof(Lead), request.Id);
             }
 
-            // 3. Map the lead entity to a DTO
             var leadDetailsDTO = _mapper.Map<LeadDetailsDTO>(lead);
 
-            // for leads with any most recent activity records
-            var recentActivities = await _activityRepository.GetRecentByRegardingAsync(
+            var timeline = await _activityRepository.GetByRegardingAsync(
                 lead.Id,
                 nameof(Lead),
-                take: 10,
                 cancellationToken);
 
-            leadDetailsDTO.RecentActivities = _mapper.Map<List<ActivitySummaryDTO>>(recentActivities);
-            // 4. Return the DTO
+           
+            leadDetailsDTO.Timeline = _mapper.Map<List<TimelineItemDTO>>(timeline)
+                .OrderByDescending(x => x.ScheduledStart)
+                .ToList();
+
             return leadDetailsDTO;
         }
     }
