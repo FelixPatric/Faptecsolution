@@ -15,7 +15,7 @@ namespace Faptecsolution.CaritasCRM.Application.MappingProfiles
                 .ForMember(d => d.Status, o => o.MapFrom(s => s.Status.ToString()))
                 .ForMember(d => d.Source, o => o.MapFrom(s => s.Source.ToString()))
                 .ForMember(d => d.Rating, o => o.MapFrom(s => s.Rating.ToString()))
-                .ForMember(d => d.RecentActivities, o => o.Ignore());
+                .ForMember(d => d.Timeline, o => o.Ignore());
         }
     }
 }
