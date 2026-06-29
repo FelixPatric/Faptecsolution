@@ -1,4 +1,6 @@
-﻿using Faptecsolution.CaritasCRM.Application.Contracts.Persistence;
+﻿using AutoMapper;
+using Faptecsolution.CaritasCRM.Application.Contracts.Persistence;
+using Faptecsolution.CaritasCRM.Domain.Entities;
 using MediatR;
 
 namespace Faptecsolution.CaritasCRM.Application.Features.Notes.Commands.AddNoteCommand
@@ -6,26 +8,17 @@ namespace Faptecsolution.CaritasCRM.Application.Features.Notes.Commands.AddNoteC
     public class AddNoteCommandHandler : IRequestHandler<AddNoteCommand, Guid>
     {
         private readonly INoteRepository _noteRepository;
+        private readonly IMapper _mapper;
 
-        public AddNoteCommandHandler(INoteRepository noteRepository)
+        public AddNoteCommandHandler(INoteRepository noteRepository, IMapper mapper)
         {
             _noteRepository = noteRepository;
+            _mapper = mapper;
         }
 
         public async Task<Guid> Handle(AddNoteCommand request, CancellationToken cancellationToken)
         {
-            var note = new Domain.Entities.Note
-            {
-                Subject = request.Subject,
-                Text = request.Text,
-                RegardingObjectId = request.RegardingObjectId,
-                RegardingObjectType = request.RegardingObjectType,
-                FileName = request.FileName,
-                FilePath = request.FilePath,
-                ContentType = request.ContentType,
-                FileSizeBytes = request.FileSizeBytes,
-                IsPinned = request.IsPinned
-            };
+            var note = _mapper.Map<Note>(request);
 
             await _noteRepository.CreateAsync(note);
 
