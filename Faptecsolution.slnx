@@ -5,7 +5,9 @@
     <Project Path="Faptecsolution.CaritasCRM.Application/Faptecsolution.CaritasCRM.Application.csproj" Id="cd5ee247-4588-4bd3-ae44-305edcfa6ab8" />
     <Project Path="Faptecsolution.CaritasCRM.Domain/Faptecsolution.CaritasCRM.Domain.csproj" />
   </Folder>
-  <Folder Name="/src/Infrastructure/" />
+  <Folder Name="/src/Infrastructure/">
+    <Project Path="Faptecsolution.CaritasCRM.Persistence/Faptecsolution.CaritasCRM.Persistence.csproj" Id="77ce96ab-4ef8-4cd5-bf43-46e450e9687c" />
+  </Folder>
   <Folder Name="/src/UI/" />
   <Folder Name="/Test/" />
 </Solution>
