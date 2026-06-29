@@ -1,4 +1,6 @@
-﻿using Faptecsolution.CaritasCRM.Persistence.DatabaseContext;
+﻿using Faptecsolution.CaritasCRM.Application.Contracts.Persistence;
+using Faptecsolution.CaritasCRM.Persistence.DatabaseContext;
+using Faptecsolution.CaritasCRM.Persistence.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -14,6 +16,8 @@ namespace Faptecsolution.CaritasCRM.Persistence
             {
                 options.UseSqlServer(configuration.GetConnectionString("CaritasCRMConnectionString"));
             });
+
+            services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
             return services;
         }
     }
