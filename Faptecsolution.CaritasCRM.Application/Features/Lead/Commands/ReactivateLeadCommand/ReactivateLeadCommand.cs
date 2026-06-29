@@ -1,6 +1,6 @@
 ﻿using MediatR;
 
-namespace Faptecsolution.CaritasCRM.Application.Features.Lead.Commands.ReactivatLeadCommand
+namespace Faptecsolution.CaritasCRM.Application.Features.Lead.Commands.ReactivateLeadCommand
 {
     public class ReactivateLeadCommand : IRequest<Unit>
     {
