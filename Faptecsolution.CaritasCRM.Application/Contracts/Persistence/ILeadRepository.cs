@@ -1,4 +1,5 @@
 ﻿using Faptecsolution.CaritasCRM.Domain.Entities;
+using Faptecsolution.CaritasCRM.Domain.Enums;
 
 namespace Faptecsolution.CaritasCRM.Application.Contracts.Persistence
 {
@@ -6,6 +7,7 @@ namespace Faptecsolution.CaritasCRM.Application.Contracts.Persistence
     {
         Task<IReadOnlyList<Lead>> SearchAsync(string searchTerm);
         Task<bool> IsEmailUniqueAsync(string email, Guid? excludeId = null);
+        Task<IEnumerable<Lead>> GetLeadsByStatusAsync(LeadStatus status);
 
     }
 
