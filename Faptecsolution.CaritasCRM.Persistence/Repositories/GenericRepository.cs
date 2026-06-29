@@ -37,14 +37,14 @@ namespace Faptecsolution.CaritasCRM.Persistence.Repositories
 
         public async Task<IReadOnlyList<T>> GetAsync()
         {
-            return await _dbContext.Set<T>()
-                .ToListAsync();
+            return await _dbContext.Set<T>().AsNoTracking().ToListAsync();
         }
 
         public async Task<T> GetByIdAsync(Guid id)
         {
-            return await _dbContext.Set<T>()
-                .FirstOrDefaultAsync(x => x.Id == id);
+            return await _dbContext.Set<T>().AsNoTracking().FirstOrDefaultAsync(l => l.Id == id);
         }
     }
+
+
 }
