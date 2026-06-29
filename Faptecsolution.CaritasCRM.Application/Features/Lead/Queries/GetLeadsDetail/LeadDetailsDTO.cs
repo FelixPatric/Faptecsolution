@@ -25,5 +25,7 @@
         public Guid? QualifiedOpportunityId { get; set; }
 
         public List<TimelineItemDTO> Timeline { get; set; } = [];
+        public List<NoteSummaryDTO> RecentNotes { get; set; } = [];
+
     }
 }
