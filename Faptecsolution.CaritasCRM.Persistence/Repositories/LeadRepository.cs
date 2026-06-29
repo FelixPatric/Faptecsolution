@@ -15,7 +15,7 @@ namespace Faptecsolution.CaritasCRM.Persistence.Repositories
         public async Task<IEnumerable<Lead>> GetLeadsByStatusAsync(LeadStatus leadStatus)
         {
             return await _dbContext.Leads
-                .Where(l => l.Status == leadStatus && !l.IsDeleted)
+                .Where(l => l.Status == leadStatus)
                 .OrderByDescending(l => l.CreatedOn)
                 .ToListAsync();
         }
@@ -38,15 +38,12 @@ namespace Faptecsolution.CaritasCRM.Persistence.Repositories
 
             return await _dbContext.Leads
                 .Where(l =>
-                    !l.IsDeleted &&
-                    (
-                        EF.Functions.Like(l.Topic, $"%{searchTerm}%") ||
-                        EF.Functions.Like(l.FirstName, $"%{searchTerm}%") ||
-                        EF.Functions.Like(l.LastName, $"%{searchTerm}%") ||
-                        EF.Functions.Like(l.Company, $"%{searchTerm}%") ||
-                        EF.Functions.Like(l.Email, $"%{searchTerm}%") ||
-                        EF.Functions.Like(l.Phone, $"%{searchTerm}%")
-                    ))
+                    EF.Functions.Like(l.Topic, $"%{searchTerm}%") ||
+                    EF.Functions.Like(l.FirstName, $"%{searchTerm}%") ||
+                    EF.Functions.Like(l.LastName, $"%{searchTerm}%") ||
+                    EF.Functions.Like(l.Company, $"%{searchTerm}%") ||
+                    EF.Functions.Like(l.Email, $"%{searchTerm}%") ||
+                    EF.Functions.Like(l.Phone, $"%{searchTerm}%"))
                 .OrderByDescending(l => l.CreatedOn)
                 .ToListAsync();
         }
