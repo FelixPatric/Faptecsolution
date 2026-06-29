@@ -16,32 +16,36 @@ namespace Faptecsolution.CaritasCRM.Persistence.Repositories
 
         public async Task CreateAsync(T entity)
         {
-            await _dbContext.AddAsync(entity);
+            await _dbContext.Set<T>().AddAsync(entity);
             await _dbContext.SaveChangesAsync();
         }
+
         public async Task UpdateAsync(T entity)
         {
-
-            _dbContext.Entry(entity).State = EntityState.Modified;
+            _dbContext.Set<T>().Update(entity);
             await _dbContext.SaveChangesAsync();
         }
 
         public async Task DeleteAsync(T entity)
         {
-            _dbContext.Remove(entity);
+            entity.IsDeleted = true;
+            entity.ModifiedOn = DateTime.UtcNow;
+
+            _dbContext.Set<T>().Update(entity);
             await _dbContext.SaveChangesAsync();
         }
 
         public async Task<IReadOnlyList<T>> GetAsync()
         {
-            return await _dbContext.Set<T>().ToListAsync();
+            return await _dbContext.Set<T>()
+                .Where(x => !x.IsDeleted)
+                .ToListAsync();
         }
 
         public async Task<T> GetByIdAsync(Guid id)
         {
-            return await _dbContext.Set<T>().FindAsync(id);
+            return await _dbContext.Set<T>()
+                .FirstOrDefaultAsync(x => x.Id == id && !x.IsDeleted);
         }
-
-
     }
 }
