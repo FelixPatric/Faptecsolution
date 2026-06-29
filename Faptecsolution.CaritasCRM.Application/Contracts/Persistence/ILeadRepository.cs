@@ -7,7 +7,7 @@ namespace Faptecsolution.CaritasCRM.Application.Contracts.Persistence
     {
         Task<IReadOnlyList<Lead>> SearchAsync(string searchTerm);
         Task<bool> IsEmailUniqueAsync(string email, Guid? excludeId = null);
-        Task<IEnumerable<Lead>> GetLeadsByStatusAsync(LeadStatus status);
+        Task<IEnumerable<Lead>> GetLeadsByStatusAsync(LeadStatus leadStatus);
 
     }
 
